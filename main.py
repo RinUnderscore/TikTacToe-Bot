@@ -19,30 +19,30 @@ while run:
     (mouse_x, mouse_y) = pg.mouse.get_pos()
     pressed_keys = pg.key.get_pressed()
 
-    # Move Select
-    if turn == "o":
-        if (mouse_x > 0 and mouse_x < 165 and mouse_y > 0 and mouse_y < 165 and event.type == pg.MOUSEBUTTONDOWN): board[0] = "o"
-        if (mouse_x > 165 and mouse_x < 330 and mouse_y > 0 and mouse_y < 165 and event.type == pg.MOUSEBUTTONDOWN): board[1] = "o"
-        if (mouse_x > 330 and mouse_y > 0 and mouse_y < 165 and event.type == pg.MOUSEBUTTONDOWN): board[2] = "o"
-        if (mouse_x > 0 and mouse_x < 165 and mouse_y > 165 and mouse_y < 330 and event.type == pg.MOUSEBUTTONDOWN): board[3] = "o"
-        if (mouse_x > 165 and mouse_x < 330 and mouse_y > 165 and mouse_y < 330 and event.type == pg.MOUSEBUTTONDOWN): board[4] = "o"
-        if (mouse_x > 330 and mouse_y > 165 and mouse_y < 330 and event.type == pg.MOUSEBUTTONDOWN): board[5] = "o"
-        if (mouse_x > 0 and mouse_x < 165 and mouse_y > 330 and event.type == pg.MOUSEBUTTONDOWN): board[6] = "o"
-        if (mouse_x > 165 and mouse_x < 330 and mouse_y > 330 and event.type == pg.MOUSEBUTTONDOWN): board[7] = "o"
-        if (mouse_x > 330 and mouse_y > 330 and event.type == pg.MOUSEBUTTONDOWN): board[8] = "o"
-        if (pg.MOUSEBUTTONDOWN == event.type): turn = "x"
-    if turn == "x":
-        if (mouse_x > 0 and mouse_x < 165 and mouse_y > 0 and mouse_y < 165 and event.type == pg.MOUSEBUTTONDOWN): board[0] = "o"
-        if (mouse_x > 165 and mouse_x < 330 and mouse_y > 0 and mouse_y < 165 and event.type == pg.MOUSEBUTTONDOWN): board[1] = "o"
-        if (mouse_x > 330 and mouse_y > 0 and mouse_y < 165 and event.type == pg.MOUSEBUTTONDOWN): board[2] = "o"
-        if (mouse_x > 0 and mouse_x < 165 and mouse_y > 165 and mouse_y < 330 and event.type == pg.MOUSEBUTTONDOWN): board[3] = "o"
-        if (mouse_x > 165 and mouse_x < 330 and mouse_y > 165 and mouse_y < 330 and event.type == pg.MOUSEBUTTONDOWN): board[4] = "o"
-        if (mouse_x > 330 and mouse_y > 165 and mouse_y < 330 and event.type == pg.MOUSEBUTTONDOWN): board[5] = "o"
-        if (mouse_x > 0 and mouse_x < 165 and mouse_y > 330 and event.type == pg.MOUSEBUTTONDOWN): board[6] = "o"
-        if (mouse_x > 165 and mouse_x < 330 and mouse_y > 330 and event.type == pg.MOUSEBUTTONDOWN): board[7] = "o"
-        if (mouse_x > 330 and mouse_y > 330 and event.type == pg.MOUSEBUTTONDOWN): board[8] = "o"
-        if (pg.MOUSEBUTTONDOWN == event.type): turn = "o"
+    for event in pg.event.get():
+        if event.type == pg.QUIT:
+            run = False
 
+    # Move Select
+    if (mouse_x > 0 and mouse_x < 165 and mouse_y > 0 and mouse_y < 165 and event.type == pg.MOUSEBUTTONDOWN): board[0] = "o"; turn = "x"
+    if (mouse_x > 165 and mouse_x < 330 and mouse_y > 0 and mouse_y < 165 and event.type == pg.MOUSEBUTTONDOWN): board[1] = "o"; turn = "x"
+    if (mouse_x > 330 and mouse_y > 0 and mouse_y < 165 and event.type == pg.MOUSEBUTTONDOWN): board[2] = "o"; turn = "x"
+    if (mouse_x > 0 and mouse_x < 165 and mouse_y > 165 and mouse_y < 330 and event.type == pg.MOUSEBUTTONDOWN): board[3] = "o"; turn = "x"
+    if (mouse_x > 165 and mouse_x < 330 and mouse_y > 165 and mouse_y < 330 and event.type == pg.MOUSEBUTTONDOWN): board[4] = "o"; turn = "x"
+    if (mouse_x > 330 and mouse_y > 165 and mouse_y < 330 and event.type == pg.MOUSEBUTTONDOWN): board[5] = "o"; turn = "x"
+    if (mouse_x > 0 and mouse_x < 165 and mouse_y > 330 and event.type == pg.MOUSEBUTTONDOWN): board[6] = "o"; turn = "x"
+    if (mouse_x > 165 and mouse_x < 330 and mouse_y > 330 and event.type == pg.MOUSEBUTTONDOWN): board[7] = "o"; turn = "x"
+    if (mouse_x > 330 and mouse_y > 330 and event.type == pg.MOUSEBUTTONDOWN): board[8] = "o"; turn = "x"
+
+    # AI
+    for a in range (len(board)):
+        if board[a] == "o":
+            print("Occupied")
+        if board[a] != "o" or board[a] != "x" or board[a] != " ":
+            board[a] = "x"
+
+
+    # Rendeing
     if board[0] == "o": screen.blit(circle, (0, 0))
     if board[1] == "o": screen.blit(circle, (165, 0))
     if board[2] == "o": screen.blit(circle, (330, 0))
@@ -52,15 +52,21 @@ while run:
     if board[6] == "o": screen.blit(circle, (0, 330))
     if board[7] == "o": screen.blit(circle, (165, 330))
     if board[8] == "o": screen.blit(circle, (330, 330))
+    if board[0] == "x": screen.blit(cross, (0, 0))
+    if board[1] == "x": screen.blit(cross, (165, 0))
+    if board[2] == "x": screen.blit(cross, (330, 0))
+    if board[3] == "x": screen.blit(cross, (0, 165))
+    if board[4] == "x": screen.blit(cross, (165, 165))
+    if board[5] == "x": screen.blit(cross, (330, 165))
+    if board[6] == "x": screen.blit(cross, (0, 330))
+    if board[7] == "x": screen.blit(cross, (165, 330))
+    if board[8] == "x": screen.blit(cross, (330, 330))
 
     pg.draw.line(screen, (0,0,0), (165,0), (165, 500), 10)
     pg.draw.line(screen, (0,0,0), (330,0), (330, 500), 10)
     pg.draw.line(screen, (0,0,0), (0,160), (500,160), 10)
     pg.draw.line(screen, (0,0,0), (0,330), (500,330), 10)
 
-    for event in pg.event.get():
-        if event.type == pg.QUIT:
-            run = False
     pg.display.flip()
     
 
